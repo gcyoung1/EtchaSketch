@@ -3,23 +3,54 @@
     <head>
         <style>
             body{
-            display:grid;
-            grid-template-columns: repeat(16, 1fr);
-            grid-template-rows: repeat(16, 1fr);
-
-        }
+                margin:auto;
+            }
         </style>
     </head>
     <body>
-
+        <button id="reset" >Change Grid Size</button>
     </body>
     <script>
-        const body = document.querySelector(body)
-        for(let i = 0;i<16;i++){
-            for(let j = 0;j<16;j++){
-                const div = document.createElement('div')
-                div.addEventListener('hover', )
+        function turnBlue(event){
+            event.currentTarget.style.backgroundColor="blue"
+        }
+        function turnWhite(event){
+            event.currentTarget.style.backgroundColor="white"
+        }
+        function createGrid(){
+            body.removeChild(container); /*Is this the right thing to do? Need to delete or maybe resize the grid before making the new one.*/
+            let i = prompt("How many rows?");
+            let j = prompt("How many columns?");
+            container.style.gridTemplateColumns = `repeat(${i}, ${640/i}px)`;
+            container.style.gridTemplateRows = `repeat(${j}, ${640/j}px)`;
+            for(let counti = 1;counti<i+1;counti++){
+                for(let countj = 1;countj<j+1;countj++){
+                    const div = document.createElement('div');
+                    div.addEventListener('mouseover', turnBlue);
+                    /*div.addEventListener('mouseout', turnWhite);*/
+                    div.style.gridArea=`${counti}/${countj}/${counti+1}/${countj+1}`;
+                    div.textContent='o'
+                    container.appendChild(div);
             }
         }
+        }
+        const body = document.querySelector('body');
+        const container = document.createElement("div");
+        const button = document.querySelector('button');
+        button.onclick=createGrid();
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = 'repeat(16, 40px)';
+        container.style.gridTemplateRows = 'repeat(16, 40px)';
+        for(let i = 1;i<17;i++){
+            for(let j = 1;j<17;j++){
+                const div = document.createElement('div');
+                div.addEventListener('mouseover', turnBlue);
+                /*div.addEventListener('mouseout', turnWhite);*/
+                div.style.gridArea=`${i}/${j}/${i+1}/${j+1}`;
+                div.textContent='o'
+                container.appendChild(div);
+            }
+        }
+        body.appendChild(container);
     </script>
 </html>
