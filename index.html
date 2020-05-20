@@ -21,17 +21,14 @@
             const body = document.querySelector('body');
             container.style.gridTemplateColumns = `repeat(${i}, ${640/i}px)`;
             container.style.gridTemplateRows = `repeat(${j}, ${640/j}px)`;
-            console.log(container.style.gridTemplateColumns);
-            console.log(i)
-            console.log(j)
+            container.style.overflow = 'hidden'
             for(let counti = 1;counti<i+1;counti++){
                 for(let countj = 1;countj<j+1;countj++){
-                    console.log("why")
                     const div = document.createElement('div');
                     div.addEventListener('mouseover', turnBlue);
                     /*div.addEventListener('mouseout', turnWhite);*/
                     div.style.gridArea=`${counti}/${countj}/${counti+1}/${countj+1}`;
-                    div.textContent='o'
+                    /*div.textContent='o'*/
                     container.appendChild(div);
             }
         }
@@ -40,19 +37,21 @@
 
         }
         function reset(){
-            let i = prompt("How many rows?");
-            let j = prompt("How many columns?");
+            let i = +prompt("How many rows?");
+            let j = +prompt("How many columns?");
             const body = document.querySelector('body');
             const container = document.querySelector('#container');
             container.querySelectorAll('div').forEach(n=>n.remove()); /*Is this the right thing to do? Need to delete or maybe resize the grid before making the new one.*/
             createGrid(i,j);
         }
-        const container = document.createElement('div');
-        container.id="container"
-        container.style.display='grid';
-        createGrid(2,2);
 
         const button = document.querySelector('button');
         button.onclick=function(){reset()};
+        const container = document.createElement('div');
+        container.id="container"
+        container.style.display='grid';
+        createGrid(16,16);
+
+ 
     </script>
 </html>
